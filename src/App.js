@@ -65,12 +65,12 @@ const App = () => {
 
   return (
     <div className="container">
-      <div className="justify-content-center row" style={{marginTop: '100px'}}>
+      <div className="content-wrapper justify-content-center row">
         <canvas ref={canvasRef} className="img-fluid col-sm-4" width={widthImage} height={heightImage} />
         
         <div className="col-sm-4 justify-content-center align-self-center mt-3">
           <div className='mb-3 text-white text-center'>
-            Kartu Idul Fitri Digital Al Irsyad Tengaran 2 Majalengka
+            Kartu Idul Fitri Digital <b>Pesantren Islam Al Irsyad Tengaran 2 Majalengka</b>
           </div>
           <input type="text" className="input-filltext form-control" placeholder='Masukkan Nama Anda!' value={name} onChange={(e) => setName(e.target.value)} />
           <div className="mt-3">
