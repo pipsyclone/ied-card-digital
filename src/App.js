@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <div className="mx-auto justify-content-center mt-5">
+      <div className="mx-auto justify-content-center mt-5 mb-5">
         <canvas ref={canvasPreview} className="mx-auto d-block img-fluid" width="475" height="608"></canvas>
         <hr />
         <div className="col-sm-5 mx-auto">
