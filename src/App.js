@@ -6,17 +6,20 @@ const App = () => {
 
   const canvasPreview = useRef();
   let context         = null;
+  const widthImage    = 1080;
+  const heightImage   = 1350;
 
   useEffect(() => {
     context = canvasPreview.current.getContext("2d");
+
     const imgOnLoad = new Image();
     imgOnLoad.onload = function () {
       context.drawImage(imgOnLoad, 0, 0);
-      context.scale(.45, .45);
-      context.font = "bold 50pt hsimplified";
+      context.scale(0.45, 0.45);
+      context.font = "bold 80pt hsimplified";
       context.fillStyle = "white";
       context.textAlign = "center";
-      context.fillText("Selamat Hari Raya Idul Fitri!", 540, 1220);
+      context.fillText("~ معهد الإرشاد الإسلامي الثاني ~", 1175, 2700);
     }
 
     imgOnLoad.src = IedCard;
@@ -24,10 +27,10 @@ const App = () => {
 
   return (
     <div className="container">
-      <div className="mx-auto justify-content-center mt-5 mb-5">
-        <canvas ref={canvasPreview} className="mx-auto d-block img-fluid" width="475" height="608"></canvas>
-        <hr />
-        <div className="col-sm-5 mx-auto">
+      <div className="justify-content-center align-items-center mt-5 mb-5 row">
+        <canvas ref={canvasPreview} className="justify-content-center d-block img-fluid col-sm-4" width={widthImage} height={heightImage}></canvas>
+        
+        <div className="col-sm-4 justify-content-center">
           <input type="text" className="input-filltext form-control" placeholder='Masukkan Nama Anda!' />
           <div className="mt-3">
             <button className="btn btn-primary">Tampilkan</button>
