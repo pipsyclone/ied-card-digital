@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Swal from 'sweetalert2';
 
 import IedCard from './assets/img/1444h.jpg';
 
@@ -6,8 +7,9 @@ const App = () => {
 
   const [showHideBtnDownload, setShowHideBtnDownload] = useState(false);
   const [name, setName] = useState("");
-  const canvasRef     = useRef();
-  let context         = null;
+  const canvasRef       = useRef();
+  let context           = null;
+
   const widthImage    = 1080;
   const heightImage   = 1350;
   const fontSize      = 40;
@@ -27,7 +29,11 @@ const App = () => {
     const img = new Image();
 
     if (name === "") {
-        alert("Form Nama Masih Kosong!")
+        Swal.fire({
+          icon: 'error',
+          title: 'Error Found!',
+          text: 'Masukkan Nama Anda Pada Form Input Setidaknya 1 Karakter!'
+        })
     }else {
         img.onload = function () {
             context.drawImage(img, 0, 0, widthImage, heightImage);
@@ -41,23 +47,7 @@ const App = () => {
     }
   }
 
-  // useEffect(() => {
-  //   context = canvasRef.current.getContext("2d");
-
-  //   const imgOnLoad = new Image();
-  //   imgOnLoad.onload = function () {
-  //     context.drawImage(imgOnLoad, 0, 0, 500, 600);
-  //     context.scale(.45, .45);
-  //     context.font = "bold "+ fontSize +"pt hsimplified";
-  //     context.fillStyle = "white";
-  //     context.textAlign = "center";
-  //     context.fillText("~ معهد الإرشاد الإسلامي الثاني ~", 1175, 2700);
-  //   }
-
-  //   imgOnLoad.src = IedCard;
-  // }, [])
-
-  window.onload = function () {
+  useEffect(() => {
     context = canvasRef.current.getContext("2d");
 
     const imgOnLoad = new Image();
@@ -71,12 +61,12 @@ const App = () => {
     }
 
     imgOnLoad.src = IedCard;
-  }
+  }, [])
 
   return (
     <div className="container">
-      <div className="justify-content-center mt-5 mb-5 row">
-        <canvas ref={canvasRef} className="img-fluid col-sm-4" width={1080} height={1350} />
+      <div className="justify-content-center row" style={{marginTop: '100px'}}>
+        <canvas ref={canvasRef} className="img-fluid col-sm-4" width={widthImage} height={heightImage} />
         
         <div className="col-sm-4 justify-content-center align-self-center mt-3">
           <div className='mb-3 text-white text-center'>
