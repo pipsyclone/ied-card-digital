@@ -7,10 +7,6 @@ const App = () => {
   const canvasPreview = useRef();
   let context     = null;
 
-  var canvas = document.getElementById('responsive-canvas');
-  var heightRatio = 1.5;
-  canvas.height = canvas.width * heightRatio;
-
   useEffect(() => {
     context = canvasPreview.current.getContext("2d");
     const img = new Image();
