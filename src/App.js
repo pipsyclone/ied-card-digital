@@ -6,49 +6,14 @@ const App = () => {
 
   const [showHideBtnDownload, setShowHideBtnDownload] = useState(false);
   const [name, setName] = useState("");
-  const canvasPreview = useRef();
+  const canvasRef     = useRef();
   let context         = null;
   const widthImage    = 1080;
   const heightImage   = 1350;
-  const fontSize      = 80;
-
-  useEffect(() => {
-    context = canvasPreview.current.getContext("2d");
-
-    const imgOnLoad = new Image();
-    imgOnLoad.onload = function () {
-      context.drawImage(imgOnLoad, 0, 0);
-      context.scale(0.45, 0.45);
-      context.font = "bold "+ fontSize +"pt hsimplified";
-      context.fillStyle = "white";
-      context.textAlign = "center";
-      context.fillText("~ معهد الإرشاد الإسلامي الثاني ~", 1175, 2700);
-    }
-
-    imgOnLoad.src = IedCard;
-  }, [])
-
-  const showPreview = () => {
-    context   = canvasPreview.current.getContext("2d");
-    const img = new Image();
-
-    if (name === "") {
-        alert("Form Nama Masih Kosong!")
-    }else {
-        img.onload = function () {
-            context.drawImage(img, 0, 0);
-            context.font = "bold "+ fontSize + "pt hpsimplified";
-            context.fillStyle = "white";
-            context.textAlign = "center";
-            context.fillText(name, 1175, 2700);
-        }
-        img.src          = IedCard;
-        setShowHideBtnDownload(true);
-    }
-  }
+  const fontSize      = 40;
 
   const downloadHandle = () => {
-    let canvas  = canvasPreview.current;
+    let canvas  = canvasRef.current;
     let img     = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
     let unduh   = document.querySelector('#unduh');
 
@@ -57,17 +22,74 @@ const App = () => {
     unduh.click();
   }
 
+  const showPreview = () => {
+    context   = canvasRef.current.getContext("2d");
+    const img = new Image();
+
+    if (name === "") {
+        alert("Form Nama Masih Kosong!")
+    }else {
+        img.onload = function () {
+            context.drawImage(img, 0, 0, widthImage, heightImage);
+            context.font = "bold "+ fontSize + "pt hpsimplified";
+            context.fillStyle = "white";
+            context.textAlign = "center";
+            context.fillText(name, 540, 1220);
+        }
+        img.src = IedCard;
+        setShowHideBtnDownload(true);
+    }
+  }
+
+  // useEffect(() => {
+  //   context = canvasRef.current.getContext("2d");
+
+  //   const imgOnLoad = new Image();
+  //   imgOnLoad.onload = function () {
+  //     context.drawImage(imgOnLoad, 0, 0, 500, 600);
+  //     context.scale(.45, .45);
+  //     context.font = "bold "+ fontSize +"pt hsimplified";
+  //     context.fillStyle = "white";
+  //     context.textAlign = "center";
+  //     context.fillText("~ معهد الإرشاد الإسلامي الثاني ~", 1175, 2700);
+  //   }
+
+  //   imgOnLoad.src = IedCard;
+  // }, [])
+
+  window.onload = function () {
+    context = canvasRef.current.getContext("2d");
+
+    const imgOnLoad = new Image();
+    imgOnLoad.onload = function () {
+      context.drawImage(imgOnLoad, 0, 0, widthImage, heightImage);
+      // context.scale(.45, .45);
+      context.font = "bold "+ fontSize +"pt hsimplified";
+      context.fillStyle = "white";
+      context.textAlign = "center";
+      context.fillText("~ معهد الإرشاد الإسلامي الثاني ~", 540, 1220);
+    }
+
+    imgOnLoad.src = IedCard;
+  }
+
   return (
     <div className="container">
-      <div className="justify-content-center align-items-center mt-5 mb-5 row">
-        <canvas ref={canvasPreview} className="justify-content-center d-block img-fluid col-sm-4" width={widthImage} height={heightImage}></canvas>
+      <div className="justify-content-center mt-5 mb-5 row">
+        <canvas ref={canvasRef} className="img-fluid col-sm-4" width={1080} height={1350} />
         
-        <div className="col-sm-4 justify-content-center mt-3">
+        <div className="col-sm-4 justify-content-center align-self-center mt-3">
+          <div className='mb-3 text-white text-center'>
+            Kartu Idul Fitri Digital Al Irsyad Tengaran 2 Majalengka
+          </div>
           <input type="text" className="input-filltext form-control" placeholder='Masukkan Nama Anda!' value={name} onChange={(e) => setName(e.target.value)} />
           <div className="mt-3">
             <button type='button' onClick={showPreview} className="btn btn-primary">Tampilkan</button>
             <button type='button' onClick={downloadHandle} className={showHideBtnDownload ? "btn btn-success ms-3" : "btn btn-success ms-3 d-none"}>Download</button>
             <a className='d-none' id='unduh'></a>
+          </div>
+          <div className='alert alert-info text-center mt-3'>
+            <strong>Info!</strong> Silahkan klik tombol download untuk mengunduh kartu idul fitri anda!
           </div>
         </div>
       </div>
